@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600">
+  <rect width="960" height="600" fill="#7d7d7d"/>
+  <rect x="60" y="60" width="840" height="420" fill="none" stroke="#0A0A0A" stroke-opacity="0.35" stroke-width="2"/>
+  <text x="60" y="540" font-family="Helvetica, Arial, sans-serif" font-size="28" letter-spacing="4" fill="#0A0A0A">OBSIDIAN — WORK</text>
+  <!-- TODO: replace with real project preview -->
+</svg>

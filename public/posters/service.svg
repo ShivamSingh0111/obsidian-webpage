@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#8a8a8a"/>
+  <rect x="60" y="80" width="680" height="380" fill="none" stroke="#1a1a1a" stroke-opacity="0.35" stroke-width="2"/>
+  <text x="60" y="520" font-family="Helvetica, Arial, sans-serif" font-size="28" letter-spacing="4" fill="#1a1a1a">OBSIDIAN — SERVICE</text>
+  <!-- TODO: replace with graded production still -->
+</svg>
