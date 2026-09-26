@@ -22,7 +22,7 @@ export const NAV_LINKS = [
   { label: 'FAQ', href: '#faq' },
 ]
 
-export const NAV_CTA = { label: 'Start a project', href: '#contact' }
+export const NAV_CTA = { label: 'Start a project', href: '/contact' }
 
 export const HERO = {
   eyebrow: 'Obsidian Tech Solution — Websites · Apps · Software',
@@ -34,7 +34,7 @@ export const HERO = {
     { t: 'business forward.', accent: true },
   ],
   lede: 'A technology partner for businesses that take digital seriously. Design, engineering, and long-term support under one roof.',
-  primaryCta: { label: 'Start a project', href: '#contact' },
+  primaryCta: { label: 'Start a project', href: '/contact' },
   secondaryCta: { label: 'See our work', href: '#work' },
   metaLeft: 'Scroll to explore',
   metaRight: 'Websites · Apps · Custom software',
@@ -234,7 +234,7 @@ export const ENGAGEMENT = [
       'Senior-only team',
       '30-day post-launch support',
     ],
-    cta: { label: 'Start a project', href: '#contact' },
+    cta: { label: 'Start a project', href: '/contact' },
     featured: false,
   },
   {
@@ -248,7 +248,7 @@ export const ENGAGEMENT = [
       'Pause or cancel monthly',
       'Direct Slack communication',
     ],
-    cta: { label: 'Talk to us', href: '#contact' },
+    cta: { label: 'Talk to us', href: '/contact' },
     featured: true,
   },
   {
@@ -262,7 +262,7 @@ export const ENGAGEMENT = [
       'Priority support',
       'Quarterly growth review',
     ],
-    cta: { label: 'Get support', href: '#contact' },
+    cta: { label: 'Get support', href: '/contact' },
     featured: false,
   },
 ]

@@ -22,12 +22,23 @@ import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
 import Legal from './components/Legal.jsx'
 
-// Minimal hash routing for standalone pages (no router dependency):
-// '#/privacy' and '#/terms' render the Legal document instead of the homepage.
+const TITLES = {
+  home: 'Obsidian Tech Solution — Websites, Apps & Custom Software',
+  contact: 'Contact Us — Obsidian Tech Solution',
+  terms: 'Terms of Service — Obsidian Tech Solution',
+  privacy: 'Privacy Policy — Obsidian Tech Solution',
+}
+
+// Route detection supporting both clean paths (/contact, /terms, /privacy)
+// and hash fallbacks (#contact, #/terms, #/privacy).
 function getRoute() {
+  if (typeof window === 'undefined') return 'home'
+  const p = window.location.pathname.replace(/\/$/, '')
   const h = window.location.hash
-  if (h.startsWith('#/terms')) return 'terms'
-  if (h.startsWith('#/privacy')) return 'privacy'
+
+  if (p === '/terms' || h.startsWith('#/terms')) return 'terms'
+  if (p === '/privacy' || h.startsWith('#/privacy')) return 'privacy'
+  if (p === '/contact' || h === '#contact' || h.startsWith('#/contact')) return 'contact'
   return 'home'
 }
 
@@ -45,42 +56,109 @@ export default function App() {
     }
   }, [loading])
 
-  // Legal pages <-> homepage transitions.
+  // Sync document title with current route.
+  useEffect(() => {
+    document.title = TITLES[route] || TITLES.home
+  }, [route])
+
+  // Scroll to section target once preloader finishes.
+  useEffect(() => {
+    if (loading) return
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    const p = window.location.pathname.replace(/\/$/, '')
+    const h = window.location.hash.replace(/^#\/?/, '')
+
+    let targetId = null
+    if (p === '/contact' || h === 'contact') {
+      targetId = 'contact'
+    } else if (h && h !== 'main' && !['privacy', 'terms'].includes(h)) {
+      targetId = h
+    }
+
+    if (targetId) {
+      const timer = setTimeout(() => {
+        document.getElementById(targetId)?.scrollIntoView({
+          behavior: reduce ? 'auto' : 'smooth',
+        })
+      }, 150)
+      return () => clearTimeout(timer)
+    }
+  }, [loading])
+
+  // Routing and transitions on hashchange and popstate.
   useEffect(() => {
     const reduce = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    const onHash = () => {
+    const onLocationChange = () => {
       const r = getRoute()
       setRoute(r)
-      if (r !== 'home') {
-        // Force-instant scroll to top: mobile browsers often swallow a plain
-        // scrollTo() inside hashchange, and the CSS smooth-scroll would fight it.
-        const toTop = () => {
-          const root = document.documentElement
-          const prev = root.style.scrollBehavior
-          root.style.scrollBehavior = 'auto'
-          window.scrollTo(0, 0)
-          root.scrollTop = 0
-          document.body.scrollTop = 0
-          root.style.scrollBehavior = prev
-        }
-        toTop()
-        requestAnimationFrame(() => requestAnimationFrame(toTop))
+
+      if (r === 'terms' || r === 'privacy') {
+        const root = document.documentElement
+        const prev = root.style.scrollBehavior
+        root.style.scrollBehavior = 'auto'
+        window.scrollTo(0, 0)
+        root.scrollTop = 0
+        document.body.scrollTop = 0
+        root.style.scrollBehavior = prev
         return
       }
-      // Returning home to a section anchor: the target mounts after this
-      // event, so scroll to it manually once painted.
-      const id = window.location.hash.replace('#', '')
-      if (id && id !== '/') {
+
+      const p = window.location.pathname.replace(/\/$/, '')
+      const h = window.location.hash.replace(/^#\/?/, '')
+      let targetId = null
+      if (p === '/contact' || h === 'contact') {
+        targetId = 'contact'
+      } else if (h && h !== 'main') {
+        targetId = h
+      }
+
+      if (targetId) {
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            document.getElementById(id)?.scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth' })
+            document.getElementById(targetId)?.scrollIntoView({
+              behavior: reduce() ? 'auto' : 'smooth',
+            })
           })
         })
       }
     }
-    window.addEventListener('hashchange', onHash)
-    return () => window.removeEventListener('hashchange', onHash)
+
+    window.addEventListener('hashchange', onLocationChange)
+    window.addEventListener('popstate', onLocationChange)
+    return () => {
+      window.removeEventListener('hashchange', onLocationChange)
+      window.removeEventListener('popstate', onLocationChange)
+    }
   }, [])
+
+  // Intercept internal clean route links (/contact, /privacy, /terms, /)
+  // so browser URL bar displays clean path without # or page refresh.
+  useEffect(() => {
+    const handleLinkClick = (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+      const a = e.target.closest('a')
+      if (!a) return
+      const href = a.getAttribute('href')
+      if (!href) return
+
+      if (href === '/contact' || href === '/privacy' || href === '/terms' || href === '/') {
+        e.preventDefault()
+        if (window.location.pathname !== href || window.location.hash) {
+          window.history.pushState({}, '', href)
+          window.dispatchEvent(new Event('popstate'))
+        } else if (href === '/contact') {
+          const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+          document.getElementById('contact')?.scrollIntoView({
+            behavior: reduce ? 'auto' : 'smooth',
+          })
+        }
+      }
+    }
+    document.addEventListener('click', handleLinkClick)
+    return () => document.removeEventListener('click', handleLinkClick)
+  }, [])
+
+  const isMainSite = route === 'home' || route === 'contact'
 
   return (
     <div style={{ position: 'relative', background: '#0a0a0a' }}>
@@ -91,8 +169,8 @@ export default function App() {
       <ScrollProgress />
       <Grain />
       <Navbar />
-      {route === 'home' && <MobileCtaBar />}
-      {route === 'home' ? (
+      {isMainSite && <MobileCtaBar />}
+      {isMainSite ? (
         <>
           <main>
             <Hero />

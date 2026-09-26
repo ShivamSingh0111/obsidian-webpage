@@ -8,7 +8,7 @@ function ServiceRow({ service, index }) {
     <FadeUp delay={0.1 + index * 0.08}>
       <a
         className="service-row zoom-hover"
-        href="#contact"
+        href="/contact"
         aria-label={`${service.title} — discuss your project`}
       >
         <span className="service-no">{service.no}</span>
@@ -129,7 +129,7 @@ export default function Services() {
                   </span>
                 )}
                 <a
-                  href="#contact"
+                  href="/contact"
                   style={{
                     fontSize: '15px',
                     fontWeight: 500,
