@@ -172,13 +172,13 @@ export default function Footer() {
           aria-label="Legal"
           style={{ display: 'inline-flex', alignItems: 'center', gap: '16px' }}
         >
-          <a className="footer-link" href="#/privacy">
+          <a className="footer-link" href="/privacy">
             Privacy Policy
           </a>
           <span aria-hidden="true" style={{ color: 'var(--faint-dark)' }}>
             ·
           </span>
-          <a className="footer-link" href="#/terms">
+          <a className="footer-link" href="/terms">
             Terms of Service
           </a>
         </nav>

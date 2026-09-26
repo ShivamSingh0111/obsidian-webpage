@@ -148,7 +148,7 @@ export default function Engagement() {
           <FadeUp delay={0.4}>
             <a
               className="text-cta"
-              href="#contact"
+              href="/contact"
               style={{ color: '#0a0a0a', marginTop: '8px', fontSize: '13px' }}
             >
               Start a project

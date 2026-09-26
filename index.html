@@ -9,6 +9,8 @@
       content="Obsidian Tech Solution designs and builds websites, apps, and custom software for businesses ready to grow."
     />
     <meta name="theme-color" content="#0A0A0A" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.obsidiantechsolution.in/" />
     <link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin />
     <link
       rel="stylesheet"
@@ -23,6 +25,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.obsidiantechsolution.in/" />
     <meta property="og:title" content="Obsidian Tech Solution — Websites, Apps & Custom Software" />
     <meta
       property="og:description"
@@ -42,18 +45,47 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Obsidian Tech Solution",
-        "description": "Technology solutions company helping businesses build, improve, and scale their digital presence.",
-        "knowsAbout": [
-          "Website design and development",
-          "Web application development",
-          "Mobile app development",
-          "Custom software development",
-          "UI/UX design",
-          "Business automation",
-          "AI-powered solutions",
-          "Technology consulting"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://www.obsidiantechsolution.in/#website",
+            "url": "https://www.obsidiantechsolution.in/",
+            "name": "Obsidian Tech Solution",
+            "description": "Obsidian Tech Solution designs and builds websites, apps, and custom software for businesses ready to grow."
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://www.obsidiantechsolution.in/#organization",
+            "name": "Obsidian Tech Solution",
+            "url": "https://www.obsidiantechsolution.in/",
+            "logo": "https://www.obsidiantechsolution.in/favicon.svg",
+            "description": "Technology solutions company helping businesses build, improve, and scale their digital presence.",
+            "email": "obsidiantechsolution@gmail.com",
+            "telephone": "+91-73557-20414",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+91-73557-20414",
+              "email": "obsidiantechsolution@gmail.com",
+              "contactType": "customer service",
+              "availableLanguage": ["English", "Hindi"]
+            },
+            "sameAs": [
+              "https://www.instagram.com/obsidiantechsolution",
+              "https://x.com/obsidiantechsol",
+              "https://www.linkedin.com/in/obsidian-tech-solution-831206434",
+              "https://www.facebook.com/people/Obsidian-Tech-Solution/61594291374885"
+            ],
+            "knowsAbout": [
+              "Website design and development",
+              "Web application development",
+              "Mobile app development",
+              "Custom software development",
+              "UI/UX design",
+              "Business automation",
+              "AI-powered solutions",
+              "Technology consulting"
+            ]
+          }
         ]
       }
     </script>

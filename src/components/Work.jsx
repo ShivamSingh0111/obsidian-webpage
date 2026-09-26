@@ -145,7 +145,7 @@ export default function Work() {
         </div>
         <FadeUp delay={0.25}>
           <div style={{ marginTop: '72px', display: 'flex', justifyContent: 'center' }}>
-            <a className="text-cta" style={{ color: '#fff', fontSize: '13px' }} href="#contact">
+            <a className="text-cta" style={{ color: '#fff', fontSize: '13px' }} href="/contact">
               Discuss your project
               <span className="button-icon button-icon-small">
                 <ArrowUpRight size={16} strokeWidth={2} aria-hidden="true" />
