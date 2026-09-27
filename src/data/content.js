@@ -308,7 +308,11 @@ export const CONTACT = {
   lede: 'Tell us about your website, app, or software project. We reply within one business day — with honest advice, even if we are not the right fit.',
   primaryCta: { label: 'Start a project', href: 'mailto:obsidiantechsolution@gmail.com' },
   email: { label: 'obsidiantechsolution@gmail.com', href: 'mailto:obsidiantechsolution@gmail.com' },
-  phone: { label: '+91-73557-20414', href: 'tel:+917355720414' },
+  phone: { label: '+91-84596-10595', href: 'tel:+918459610595' },
+  phones: [
+    { label: '+91-84596-10595', href: 'tel:+918459610595' },
+    { label: '+91-73557-20414', href: 'tel:+917355720414' },
+  ],
   whatsapp: { label: 'Chat on WhatsApp', href: 'https://wa.me/917355720414' },
   responseBadge: 'Response < 24h · Mon–Sat, IST',
   confidentiality: 'NDA-friendly. Your idea stays confidential.',

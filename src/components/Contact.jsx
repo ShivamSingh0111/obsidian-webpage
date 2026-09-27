@@ -425,13 +425,16 @@ export default function Contact() {
                   >
                     {CONTACT.email.label}
                   </InfoRow>
-                  <InfoRow
-                    href={CONTACT.phone.href}
-                    icon={<Phone size={18} strokeWidth={2} />}
-                    label={`Call us at ${CONTACT.phone.label}`}
-                  >
-                    {CONTACT.phone.label}
-                  </InfoRow>
+                  {(CONTACT.phones || (CONTACT.phone ? [CONTACT.phone] : [])).map((p) => (
+                    <InfoRow
+                      key={p.href}
+                      href={p.href}
+                      icon={<Phone size={18} strokeWidth={2} />}
+                      label={`Call us at ${p.label}`}
+                    >
+                      {p.label}
+                    </InfoRow>
+                  ))}
                   <InfoRow
                     href={CONTACT.whatsapp.href}
                     external

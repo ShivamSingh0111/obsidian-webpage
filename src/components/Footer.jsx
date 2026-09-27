@@ -127,6 +127,13 @@ export default function Footer() {
                   {CONTACT.email.label}
                 </a>
               </li>
+              {(CONTACT.phones || (CONTACT.phone ? [CONTACT.phone] : [])).map((p) => (
+                <li key={p.href}>
+                  <a className="footer-link" href={p.href}>
+                    {p.label}
+                  </a>
+                </li>
+              ))}
               <li>
                 <a className="footer-link" href={CONTACT.whatsapp.href}>
                   WhatsApp
