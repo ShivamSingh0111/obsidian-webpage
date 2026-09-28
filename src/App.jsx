@@ -131,8 +131,26 @@ export default function App() {
     }
   }, [])
 
-  // Intercept internal clean route links (/contact, /privacy, /terms, /)
-  // so browser URL bar displays clean path without # or page refresh.
+  // Automatically sanitize legacy hash URLs (#contact, #/privacy, #/terms, #main, #)
+  // so the browser address bar stays on clean canonical paths without '#'
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const h = window.location.hash
+    if (h === '#contact' || h.startsWith('#/contact')) {
+      window.history.replaceState({}, '', '/contact')
+    } else if (h.startsWith('#/privacy') || h === '#privacy') {
+      window.history.replaceState({}, '', '/privacy')
+    } else if (h.startsWith('#/terms') || h === '#terms') {
+      window.history.replaceState({}, '', '/terms')
+    } else if (h === '#main' || h === '#' || h === '') {
+      if (window.location.hash) {
+        window.history.replaceState({}, '', window.location.pathname)
+      }
+    }
+  }, [])
+
+  // Intercept internal clean route links (/contact, /privacy, /terms, /) and hash links
+  // so browser URL bar displays clean paths without # or unwanted fragment anchors.
   useEffect(() => {
     const handleLinkClick = (e) => {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
@@ -151,6 +169,32 @@ export default function App() {
           document.getElementById('contact')?.scrollIntoView({
             behavior: reduce ? 'auto' : 'smooth',
           })
+        }
+        return
+      }
+
+      if (href.startsWith('#')) {
+        const targetId = href.slice(1)
+        if (targetId === 'contact') {
+          e.preventDefault()
+          window.history.pushState({}, '', '/contact')
+          window.dispatchEvent(new Event('popstate'))
+        } else if (targetId === 'main' || !targetId) {
+          e.preventDefault()
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+          if (window.location.hash) {
+            window.history.replaceState({}, '', window.location.pathname)
+          }
+        } else {
+          const el = document.getElementById(targetId)
+          if (el) {
+            e.preventDefault()
+            const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+            el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' })
+            if (window.location.hash) {
+              window.history.replaceState({}, '', window.location.pathname)
+            }
+          }
         }
       }
     }
